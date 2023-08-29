@@ -1,0 +1,138 @@
+.menuIcon {
+
+  font-size: 4vh;
+  color: white;
+  /* margin-left: 30px; */
+}
+
+.menuHead {
+  font-weight: bold;
+  font-size: 2.5vh;
+  background-color:
+    rgb(199 205 199);
+  margin-top: 5vh;
+  color: black;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+  width: 90%;
+  height: 4vh;
+}
+
+.dropdown {
+  display: block;
+  position: relative;
+  margin-left: 5px;
+  /* margin-top: 10px; */
+}
+
+.fas {
+  color: white;
+  font-size: 3vh;
+}
+
+button {
+  background-color: rgb(20, 17, 17);
+  margin-top: 5vh;
+  color: aqua;
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+  width: 90%;
+}
+
+.dropdown-content {
+  display: none;
+  /* position: absolute; */
+  width: 90%;
+  font-weight: bold;
+  overflow: auto;
+  background-color: antiquewhite;
+  box-shadow: 0px 10px 10px 0px rgba(0, 0, 0, 0.4);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  border-radius: 10px;
+  margin-left: 5%;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 5px;
+  color: white;
+  background-color: rgb(135, 135, 135);
+  font-size: 1.5vh;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {
+  color: black;
+  background-color: rgb(199 205 199);
+  font-size: 2vh;
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+nav {
+  position: relative;
+  z-index: 2;
+}
+
+.maindiv {
+  /* height: 98vh;
+  margin-left: 0.5vw;
+  width: 8vw;
+  position: relative;
+  margin-top: -6px;
+  border-radius: 15px;
+  background-color: bisque;
+  color: aqua;
+  text-align: center; */
+  /* 
+  height: 97vh;
+  margin-left: 0.3vw;
+  width: 9vw;
+  position: relative;
+  margin-top: -6px;
+  border-radius: 15px;
+  background-color: rgb(50, 48, 48);
+  text-align: center; */
+
+  height: 98vh;
+  width: 9vw;
+  position: relative;
+  border-radius: 5px;
+  background-color: rgb(50, 48, 48);
+  text-align: center;
+  margin-top: -16px;
+}
+
+.rides,
+.users {
+  padding: 0px 15px 0px 15px;
+}
+
+.logoutIcon {
+  height: 45px;
+  /* bottom: 0; */
+  color: white;
+  position: inherit;
+  /* margin-top: 15vh; */
+
+  /* left: 40px; */
+}
+
+* {
+  list-style-type: none;
+}
+
+.logoutContainer {
+  position: absolute;
+  /* border: 2px solid red; */
+  top: 80%;
+  /* Adjust as needed */
+  left: 30%;
+}

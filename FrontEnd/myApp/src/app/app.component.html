@@ -1,0 +1,103 @@
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat&family=PT+Sans&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<div (mousemove)="onMouseMove()" (keyup)="onkeypress()">
+  <div id="message" class="message"><div>1234</div></div>
+  <div id="notification" class="notification">
+    <div>
+      <!-- <img
+        class="notification-logo"
+        src="http://localhost:3000/images/uploaddriver/1691630027448eber.webp"
+      />
+      <h2>From Eber</h2> -->
+    </div>
+  </div>
+  <div class="main">
+    <div class="login_form" *ngIf="!isLogin">
+      <form
+        class="frm"
+        name="adminLoginForm"
+        *ngIf="adminLoginForm"
+        (submit)="findAdmin()"
+      >
+        <span class="head">EBER</span>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          [(ngModel)]="userName"
+          placeholder="User Name"
+        />
+
+        <input
+          type="password"
+          name="password"
+          id="password"
+          [(ngModel)]="pass"
+          placeholder="Password"
+        />
+        <!-- <div *ngIf="isPassword">Password Required</div>
+      <div *ngIf="notPassword">Wrong Password</div> -->
+        <button type="submit">Log In</button>
+        <button
+          type="button"
+          class="register-btn"
+          (click)="registerAdmin(false)"
+        >
+          Register
+        </button>
+      </form>
+      <form
+        class="frm"
+        name="adminRegisterForm"
+        *ngIf="adminRegisterForm"
+        (submit)="storeAdmin()"
+      >
+        <p class="head">Register</p>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          [(ngModel)]="adminName"
+          placeholder="User Name"
+        />
+        <div *ngIf="isUserName">UserName Required</div>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          [(ngModel)]="adminPassword"
+          placeholder="Password"
+        />
+        <div *ngIf="isPassword">Password Required</div>
+        <button
+          type="submit"
+          [disabled]="adminName != '' && adminPassword != '' ? false : true"
+        >
+          Register
+        </button>
+        <button
+          type="button"
+          class="register-btn"
+          (click)="registerAdmin(true)"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+    <div class="outlet" *ngIf="isLogin">
+      <main style="display: flex">
+        <app-main-page (menuHideEvent)="logOut($event)"> </app-main-page>
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>
+</div>
+<div>
+  <app-loader></app-loader>
+</div>

@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 0;
+  height: 100vh;
+  border-collapse: collapse;
+}
+
+/* 
+ * {
+  caret-color: transparent;
+  cursor: pointer;
+} */
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'PT Sans', sans-serif;
+}
+
+.heading {
+  background-color: rgb(50, 48, 48);
+  color: white;
+  margin-top: 2vh;
+  text-align: center;
+  margin-left: 1vw;
+  font-size: 35px;
+  width: 89vw;
+  border-radius: 10px;
+  letter-spacing: 9px;
+}

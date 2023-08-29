@@ -1,0 +1,259 @@
+.custom-button {
+  width: 10vw;
+  padding: 5px;
+  margin-right: 0px;
+}
+
+.hidden-input {
+  position: absolute;
+  border: 1px solid black;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+  opacity: 0;
+  cursor: pointer;
+  display: none;
+  visibility: hidden;
+}
+
+.userImage {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  display: absolute;
+}
+
+.deleteButton {
+  margin-left: 1vw;
+}
+
+.addCardButton {
+  margin-left: 1vw;
+}
+
+.deleteButton:hover {
+  color: red;
+  /* height: 10px; */
+  /* font-size: large; */
+}
+
+.addCardButton:hover {
+  color: rgb(15, 189, 15);
+  /* height: 10px; */
+  /* font-size: large; */
+}
+
+.editButton:hover {
+  color: blue;
+  /* height: 10px; */
+  /* font-size: large; */
+}
+
+.assign-btn {
+  width: 10vw;
+  margin-top: 10px;
+  background-color: #34b097;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.cancel-btn {
+  width: 10vw;
+  font-weight: bold;
+  margin-top: 10px;
+  background-color: rgb(240, 206, 82);
+  font-size: 15px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.card-list {
+  background-color: rgb(72, 71, 71);
+  border-radius: 10px;
+  margin-left: 5px;
+  text-align: center;
+  color: rgb(17, 232, 17);
+  position: absolute;
+  height: 2vh;
+  overflow: scroll;
+  width: 9vw;
+  font-size: 22px;
+  height: 30px;
+}
+
+.searchBar {
+  width: 84vw;
+  height: 3vh;
+  margin-left: 3.5vw;
+  margin-top: 25px;
+  color: white;
+  background-color: rgb(44, 42, 42);
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.userForm {
+  display: flex;
+  margin-top: 15px;
+  margin-left: 5vw;
+}
+
+.userForm input,
+select,
+.custom-button {
+  display: block;
+  margin-top: 7px;
+  width: 10vw;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.15);
+  font-size: 1.5vh;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.userForm select:hover {
+  box-shadow: 7px 6px 7px rgb(114, 116, 117);
+  color: black;
+  border: none;
+
+}
+
+.userForm input:hover {
+  box-shadow: 7px 6px 7px rgb(114, 116, 117);
+  color: black;
+  border: none;
+}
+
+.userForm select:focus {
+  box-shadow: 7px 6px 7px rgb(114, 116, 117);
+  color: black;
+  border: none;
+}
+
+.custom-button:hover {
+  box-shadow: 7px 6px 7px rgb(114, 116, 117);
+  color: black;
+  border: none;
+}
+
+.userForm input:focus {
+  box-shadow: 7px 6px 7px rgb(114, 116, 117);
+  color: black;
+  border: none;
+}
+
+.dropdown-heading {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+  display: inline;
+  /* Add more styles as needed */
+}
+
+
+.onPage {
+  color: white;
+  margin-top: 1vh;
+  font-weight: bold;
+  background-color: red;
+  padding: 5px;
+  caret-color: transparent;
+  border-radius: 5px;
+  list-style-type: none;
+}
+
+* {
+  list-style-type: none;
+  caret-color: transparent;
+}
+
+.styled-table {
+  margin: 0;
+  border-collapse: collapse;
+  margin: 25px 0 0 2vw;
+  font-size: 1em;
+  font-weight: bold;
+  /* height: 57vh; */
+  width: 85vw;
+  font-family: sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.outputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+} */
+thead {
+  position: sticky;
+  top: 0px;
+  /* margin-bottom: 10px; */
+  padding: 20px;
+}
+
+.styled-table tbody tr {
+  color: rgb(121, 119, 119);
+}
+
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row:hover {
+  font-weight: bold;
+  /* color: white; */
+  color: black;
+}
+
+/* .cancel-btn {
+  background-color: rgb(240, 206, 82);
+} */
+
+.cancel-btn:hover {
+  background-color: rgb(236, 100, 59);
+  ;
+}
+
+/* .assign-btn {
+  background-color: #34b097;
+} */
+
+.assign-btn:hover {
+  background-color: #0fa236;
+}

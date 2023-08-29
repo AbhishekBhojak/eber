@@ -1,0 +1,236 @@
+<p class="heading">Users</p>
+<div class="container">
+  <div class="userFormDiv">
+    <form class="userForm" (ngSubmit)="storeUserData()">
+      <div>
+        <label for="file-input" class="custom-button">Upload Image</label>
+        <input
+          name="image"
+          type="file"
+          class="hidden-input"
+          id="file-input"
+          placeholder="User Profile"
+          (change)="onSelectFile($event)"
+          (change)="notEmpty('image')"
+          accept=".jpg,.png,.jpeg"
+          required
+        />
+        <div *ngIf="isImageEmpty">pls upload file</div>
+      </div>
+      <div>
+        <input
+          name="name"
+          id="name"
+          type="text"
+          [(ngModel)]="userName"
+          placeholder="Name"
+          (change)="notEmpty('name')"
+          required
+        />
+        <div *ngIf="isName">name field is empty</div>
+      </div>
+      <div>
+        <input
+          name="email"
+          id="email"
+          type="email"
+          [(ngModel)]="userEmail"
+          placeholder="Email"
+          (change)="notEmpty('email')"
+          required
+        />
+        <div *ngIf="isEmail">email invalid</div>
+      </div>
+      <div>
+        <select
+          name="country"
+          id="country"
+          [(ngModel)]="selectedCountry"
+          (change)="onSelectCountry()"
+          (change)="notEmpty('country')"
+        >
+          <option *ngFor="let i of countryList" [ngValue]="i">
+            {{ i.countryName }}
+          </option>
+        </select>
+        <!-- <div class="dropdown-heading">country</div> -->
+        <div *ngIf="isCountry">country is not selected</div>
+      </div>
+      <div>
+        <input
+          type="text"
+          name="countrycode"
+          class="codeField"
+          [(ngModel)]="countryCode"
+          disabled
+        />
+      </div>
+      <div>
+        <input
+          name="mobile"
+          class="no-arrows"
+          id="mobile"
+          (change)="notEmpty('mobile')"
+          type="number"
+          oninput="validity.valid||(value='')"
+          min="0"
+          max="9999999999"
+          (keyup)="validateNum($event, 10, 'addUser')"
+          [(ngModel)]="userMobile"
+          placeholder="Mob-Number"
+        />
+        <div *ngIf="isNumber">number field is empty</div>
+      </div>
+
+      <button type="submit" id="addUser" class="assign-btn" *ngIf="storeButton">
+        Add user
+      </button>
+      <button
+        type="button"
+        id="addUser"
+        class="assign-btn"
+        *ngIf="editButton"
+        (click)="updateUserData()"
+      >
+        Update User
+      </button>
+      <button type="button" class="cancel-btn" (click)="resetForm()">
+        Cancel
+      </button>
+    </form>
+    <form (ngSubmit)="storeCardData()" *ngIf="cardForm" class="userForm">
+      <input
+        type="number"
+        name="cardNumber"
+        [(ngModel)]="cardNumber"
+        placeholder="CardNo."
+        oninput="validity.valid||(value='')"
+        min="0"
+        max="9999999999999999"
+        (keyup)="validateNum($event, 16, 'cvv')"
+      />
+      <input
+        type="number"
+        id="cvv"
+        name="cvv"
+        oninput="validity.valid||(value='')"
+        min="0"
+        max="999"
+        (keyup)="validateNum($event, 3, 'timePicker')"
+        [(ngModel)]="cvv"
+        placeholder="cvv"
+      />
+      <input
+        type="date"
+        name="ExpiryDate"
+        id="timePicker"
+        [(ngModel)]="expiry"
+      />
+      <button type="submit" class="assign-btn">Add Card</button>
+      <button type="button" class="cancel-btn" (click)="cancelAddCard()">
+        Cancel
+      </button>
+      <div>
+        <ul placeholder="show Cards" id="cardList" class="card-list">
+          <li *ngFor="let i of filterUserCard">
+            <tr>
+              <td>{{ i.last4 }}</td>
+              &nbsp;&nbsp;
+              <td>{{ i.expiryMonth }}</td>
+              /&nbsp;
+              <td>{{ i.expiryYear }}</td>
+              <td></td>
+            </tr>
+          </li>
+        </ul>
+        <span>Card List:</span>
+      </div>
+    </form>
+    <div *ngIf="cardForm">
+      <ul>
+        <!-- <li *ngFor="let i of card" ></li> -->
+      </ul>
+    </div>
+  </div>
+  <input
+    type="text"
+    placeholder="Search User..."
+    class="searchBar"
+    [(ngModel)]="userData"
+  />
+  <div class="outputContainer">
+    <!-- <div class="tbl-container"> -->
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Profile</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>phone</th>
+          <th>countryName</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="active-row"
+          *ngFor="let i of mongoUserData | userFilter : userData"
+        >
+          <td>
+            <img
+              src="http://localhost:3000/images/uploaduser/{{
+                i.userImage || '123.png'
+              }}"
+              alt=""
+              class="userImage"
+            />
+          </td>
+          <td>{{ i.userName }}</td>
+          <td>{{ i.userEmail }}</td>
+          <td>{{ i.userPhone }}</td>
+          <td>{{ i.countryId.countryName }}</td>
+          <td>
+            <i
+              class="fas fa-pencil-alt editButton"
+              (click)="onEditButton(i)"
+            ></i>
+            <!-- <i class="fab fa-cc-stripe"></i> -->
+            <i
+              class="fas fa-credit-card addCardButton"
+              (click)="addCard(i)"
+            ></i>
+            <i
+              class="fas fa-trash-alt deleteButton"
+              (click)="onDeleteButton(i)"
+            ></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- </div> -->
+    <div>
+      <div class="paginate">
+        <div>
+          <select name="pg" [(ngModel)]="pageLimit" (change)="onChangeLimit()">
+            <optgroup label="Limit">
+              <option value="2">2</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+            </optgroup>
+          </select>
+          <div>
+            <ul style="display: inline-block" *ngFor="let i of pageList">
+              <li
+                name="page"
+                [ngClass]="{ onPage: pageNo == i }"
+                (click)="getUserData(i)"
+              >
+                {{ i }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

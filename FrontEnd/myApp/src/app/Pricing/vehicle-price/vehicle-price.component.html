@@ -1,0 +1,183 @@
+<p class="heading">Vehicle Price</p>
+<div class="container">
+  <select
+    name="countryList"
+    id="countryList"
+    class="countryList"
+    [(ngModel)]="selectedCountry"
+    (change)="onSelectCountry()"
+    (change)="notEmpty('country')"
+  >
+    <option *ngFor="let item of countryList" [ngValue]="item">
+      {{ item.countryName }}
+    </option>
+  </select>
+  <div *ngIf="isCountry">Select Country</div>
+  <div class="dropdown-heading">country</div>
+  <div>
+    <select
+      name="cityList"
+      class="countryList"
+      id="cityList"
+      *ngIf="showCityList"
+      (change)="notEmpty('city')"
+      [(ngModel)]="selectedCity"
+    >
+      <option
+        *ngFor="let items of cityList | cityFilter : selectedCountry._id"
+        [ngValue]="items"
+      >
+        {{ items.cityName }}
+      </option>
+    </select>
+    <div class="dropdown-heading" *ngIf="showCityList">city</div>
+    <div *ngIf="isCity && showCityList">Select City</div>
+  </div>
+  <div>
+    <select
+      name="vehicleList"
+      class="countryList"
+      id="vehicleList"
+      (change)="notEmpty('vehicle')"
+      [(ngModel)]="selectedVehicle"
+    >
+      <option *ngFor="let list of vehicleList" [ngValue]="list">
+        {{ list.vehicleName }}
+      </option>
+    </select>
+    <div *ngIf="isVehicle">Select Vehicle</div>
+    <div class="dropdown-heading">vehicle</div>
+  </div>
+  <div>
+    <form class="vehicleForm" (ngSubmit)="storeVehiclePriceData()">
+      <div class="frmContent">
+        <input
+          name="field1"
+          type="number"
+          oninput="validity.valid||(value='20')"
+          min="1"
+          max="20"
+          style="display: inline"
+          (change)="notEmpty('dp')"
+          [(ngModel)]="driverProfit"
+          placeholder="Driver Profit max 20"
+        />
+        <div style="display: inline" *ngIf="isDriverProfit">Requriedikk</div>
+      </div>
+      <div class="frmContent">
+        <input
+          name="field2"
+          type="number"
+          oninput="validity.valid||(value='100')"
+          min="0"
+          max="100"
+          (change)="notEmpty('mf')"
+          [(ngModel)]="minFare"
+          placeholder="Min Fare Max 100"
+        />
+        <div *ngIf="isMinfare">Requried</div>
+      </div>
+      <div class="frmContent">
+        <input
+          name="field4"
+          type="number"
+          oninput="validity.valid||(value='200')"
+          min="0"
+          max="200"
+          (change)="notEmpty('bp')"
+          [(ngModel)]="basePrice"
+          placeholder="Base Price Max 200"
+        />
+        <div *ngIf="isBasePrice">Requried</div>
+      </div>
+      <div class="frmContent">
+        <input
+          name="field5"
+          type="number"
+          oninput="validity.valid||(value='5')"
+          min="1"
+          max="5"
+          (change)="notEmpty('bpd')"
+          [(ngModel)]="distanceUnit"
+          placeholder="BasePrice Distance Max 5"
+        />
+        <div *ngIf="isDistanceUnit">Requried</div>
+      </div>
+      <div class="frmContent">
+        <input
+          name="field6"
+          type="number"
+          oninput="validity.valid||(value='5')"
+          min="1"
+          max="5"
+          (change)="notEmpty('udp')"
+          [(ngModel)]="timeUnit"
+          placeholder="Unit Distance Price Max 5"
+        />
+        <div *ngIf="isTimeUnit">Requried</div>
+      </div>
+      <div class="frmContent">
+        <input
+          name="field3"
+          type="number"
+          oninput="validity.valid||(value='20')"
+          min="0"
+          max="20"
+          (change)="notEmpty('utp')"
+          [(ngModel)]="distance"
+          placeholder="Unit Time Price Max 20"
+        />
+        <div *ngIf="isDistance">Requried</div>
+      </div>
+      <div class="frmContent">
+        <input
+          name="field7"
+          type="number"
+          oninput="validity.valid||(value='8')"
+          min="1"
+          max="8"
+          (change)="notEmpty('ms')"
+          [(ngModel)]="maxSpace"
+          placeholder="Max Space Max 8"
+        />
+        <div *ngIf="isMaxSpace">Requried2222max</div>
+      </div>
+      <div>
+        <button type="submit" class="assign-btn">Add Vehicle Price</button>
+        <button type="reset" class="cancel-btn" (click)="cancelBtn()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="outputContainer" *ngIf="showTable">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>City Name</th>
+          <th>Vehicle Type</th>
+          <th>Driver Profit</th>
+          <th>MinFare</th>
+          <th>Distance For BasePrice</th>
+          <th>BasePrice</th>
+          <th>Distance Unit</th>
+          <th>Time Unit</th>
+          <th>Max Space</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="active-row" *ngFor="let data of dbVehiclePriceData">
+          <td>{{ data.cityId.cityName }}</td>
+          <td>{{ data.vehicleTypeId.vehicleName }}</td>
+          <td>{{ data.driverProfit }}</td>
+          <td>{{ data.minFare }}</td>
+          <td>{{ data.distance }}</td>
+          <td>{{ data.basePrice }}</td>
+          <td>{{ data.distanceUnit }}</td>
+          <td>{{ data.timeUnit }}</td>
+          <td>{{ data.maxSpace }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,169 @@
+.map {
+  height: 400px;
+  width: 500px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: aliceblue;
+}
+
+.mapDiv {
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.savecity {
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 5vw;
+  margin-top: 2%;
+}
+
+.assign-btn1 {
+  background-color: #34b097;
+  font-size: 20px;
+  width: 4.5vw;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.cancel-btn {
+  background-color: rgb(240, 206, 82);
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.assign-btn {
+  background-color: #34b097;
+  margin-left: 15vw;
+  font-size: 20px;
+  margin-top: 2vw;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.container {
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 5vh;
+  margin-left: 5vw;
+}
+
+.countryList {
+  display: flex;
+  justify-content: center;
+}
+
+.autoCompleteContainer {
+  display: flex;
+  /* flex-direction: column-reverse; */
+  justify-content: center;
+  /* flex-flow: column; */
+}
+
+.mapContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.cityData {
+  cursor: pointer;
+}
+
+.selectCountry {
+  color: white;
+  background-color: rgb(44, 42, 42);
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  width: 30vw;
+  /* margin-left: 400px; */
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.cityDiv {
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+  height: 35vh;
+  overflow-x: scroll;
+  scrollbar-width: none;
+}
+
+.cityList {
+  height: 450px;
+  width: 500px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  text-align: justify;
+}
+
+.cityHeading {
+  color: white;
+  background: #4e4747;
+  padding: 5px;
+  width: 20vw;
+  text-align: center;
+  border-radius: 11px;
+  margin-left: 3.3vw;
+  font-size: 2.5vh;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.cityData {
+  background-color: rgb(79, 77, 77);
+  margin-top: 2vh;
+  position: relative;
+  margin-left: 5.5vw;
+  color: white;
+  width: 9vw;
+  font-size: 2vh;
+  border-radius: 10px;
+  padding: 9px;
+}
+
+.cityList ul {
+  list-style-type: none;
+  text-align: center;
+}
+
+.autocomplete {
+  color: white;
+  background-color: rgb(44, 42, 42);
+  margin-top: 2vh;
+  font-size: 15px;
+  text-align: center;
+  padding: 5px;
+  width: 29vw;
+  border-radius: 10px;
+}
+
+/* .cancel-btn {
+  background-color: rgb(240, 206, 82);
+} */
+
+.cancel-btn:hover {
+  background-color: rgb(236, 100, 59);
+  ;
+}
+
+/* 
+.assign-btn {
+  background-color: #34b097;
+} */
+
+.assign-btn:hover {
+  background-color: #0fa236;
+}
+
+.assign-btn1:hover {
+  background-color: #0fa236;
+}

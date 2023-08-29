@@ -1,0 +1,235 @@
+<p class="heading">Driver List</p>
+<div class="container">
+  <div class="driverFormDiv">
+    <form class="userForm" (ngSubmit)="storeDriverData()">
+      <div>
+        <label for="file-input" class="custom-button">Upload Image</label>
+        <input
+          name="image"
+          type="file"
+          class="hidden-input"
+          id="file-input"
+          placeholder="User Profile"
+          (change)="onSelectFile($event)"
+          (change)="noEmpty('image')"
+          accept=".jpg,.png,.jpeg"
+          required
+        />
+        <div *ngIf="isEmptyImage">pls upload image</div>
+      </div>
+      <div>
+        <input
+          name="name"
+          type="text"
+          [(ngModel)]="driverName"
+          (change)="noEmpty('name')"
+          placeholder="Name"
+          required
+        />
+        <div *ngIf="isName">name empty</div>
+      </div>
+      <div>
+        <input
+          name="email"
+          id="email"
+          type="email"
+          [(ngModel)]="driverEmail"
+          (change)="noEmpty('email')"
+          placeholder="Email"
+          required
+        />
+        <div *ngIf="isEmail">Email Invalid</div>
+      </div>
+      <div>
+        <select
+          name="country"
+          [(ngModel)]="selectedCountry"
+          (change)="onSelectCountry()"
+          (change)="noEmpty('country')"
+        >
+          <option *ngFor="let i of countryList" [ngValue]="i">
+            {{ i.countryName }}
+          </option>
+        </select>
+        <div class="dropdown-heading">country</div>
+        <div *ngIf="isCountry">Select Country</div>
+      </div>
+      <div>
+        <input
+          type="text"
+          name="countrycode"
+          class="codeField"
+          [(ngModel)]="countryCode"
+          disabled
+        />
+      </div>
+      <div>
+        <select
+          name="city"
+          [(ngModel)]="selectedCity"
+          (change)="onSelectCity()"
+          (change)="noEmpty('city')"
+        >
+          <option *ngFor="let i of cityList" [ngValue]="i">
+            {{ i.cityName }}
+          </option>
+        </select>
+        <div class="dropdown-heading">city</div>
+        <div *ngIf="isCity">pls select City</div>
+      </div>
+      <div>
+        <input
+          name="mobile"
+          type="number"
+          [(ngModel)]="driverPhone"
+          placeholder="Mob-Number"
+          oninput="validity.valid||(value='')"
+          min="0"
+          max="9999999999"
+          (keyup)="validateNum($event, 10, 'addDriver')"
+          (change)="noEmpty('mobile')"
+          maxlength="10"
+        />
+        <div *ngIf="isNumber">Number field is empty</div>
+      </div>
+      <div>
+        <select
+          name="DriverStatus"
+          *ngIf="isStatus"
+          [(ngModel)]="driverStatus"
+          id="DriverStatus"
+        >
+          <option value="aprove">Aprove</option>
+          <option value="decline">Decline</option>
+        </select>
+        <div class="dropdown-heading" *ngIf="isStatus">Status</div>
+      </div>
+      <div>
+        <select
+          name="selectedVehicleType"
+          *ngIf="isStatus"
+          [(ngModel)]="selectedVehicleType"
+          (change)="onSelectVehicleType()"
+        >
+          <option *ngFor="let i of vehicleTypeList" [ngValue]="i">
+            {{ i.vehicleName }}
+          </option>
+        </select>
+        <div class="dropdown-heading" *ngIf="isStatus">Vehicle</div>
+      </div>
+      <!-- <input type="checkbox" /> -->
+      <button
+        type="submit"
+        class="assign-btn"
+        id="addDriver"
+        *ngIf="storeButton"
+      >
+        <!-- [disabled]="file != undefined ? false : true" -->
+        Add Driver
+      </button>
+      <button
+        type="button"
+        class="assign-btn"
+        id="addDriver"
+        *ngIf="editButton"
+        (click)="updateDriverData()"
+      >
+        <!-- [disabled]="file != undefined ? true : false" -->
+        Update Driver
+      </button>
+      <button type="button" class="cancel-btn" (click)="resetForm()">
+        Cancel
+      </button>
+    </form>
+  </div>
+  <input
+    type="text"
+    placeholder="Search Drivers...."
+    class="searchBar"
+    [(ngModel)]="driverQuery"
+    (keydown)="getDriverData()"
+  />
+  <div class="outputContainer">
+    <div class="tbl-container">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>profile</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Vehicle</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr *ngFor="let i of driverList | driverFilter : driverQuery"> -->
+          <tr class="active-row" *ngFor="let i of driverList">
+            <!-- <tr *ngFor="let i of driverList"> -->
+            <td>
+              <img
+                src="http://localhost:3000/images/uploaddriver/{{
+                  i.driverProfile || '123.png'
+                }}"
+                class="driverImage"
+                alt="NoImage"
+              />
+            </td>
+            <td>{{ i.driverName }}</td>
+            <td>{{ i.driverEmail }}</td>
+            <td>{{ i.driverPhone }}</td>
+            <td *ngIf="i.city">{{ i.city }}</td>
+            <td *ngIf="i.cityId">{{ i.cityId.cityName }}</td>
+            <td *ngIf="i.country">{{ i.country }}</td>
+            <td *ngIf="i.countryId">{{ i.countryId.countryName }}</td>
+            <td *ngIf="i.vehicle">
+              {{ i.vehicle || "no Vehicle" }}
+            </td>
+            <td *ngIf="i.vehicleTypeId">
+              {{ i.vehicleTypeId.vehicleName || "no Vehicle" }}
+            </td>
+            <!-- <td *ngIf="!i.vehicleTypeId">no Vehicle</td> -->
+            <td>{{ i.driverStatus }}</td>
+            <td>
+              <i
+                class="fas fa-pencil-alt editButton"
+                (click)="onEditButton(i)"
+              ></i>
+              <i
+                class="fas fa-trash-alt deleteButton"
+                (click)="onDeleteButton(i)"
+              ></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="page-container">
+  <div class="paginate">
+    <div>
+      <select name="pg" [(ngModel)]="pageLimit" (change)="onChangeLimit()">
+        <optgroup label="Limit">
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+        </optgroup>
+      </select>
+      <div>
+        <ul style="display: inline-block" *ngFor="let i of pageList">
+          <li
+            name="page"
+            [ngClass]="{ onPage: pageNo == i }"
+            (click)="getDriverData(i)"
+          >
+            {{ i }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

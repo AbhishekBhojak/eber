@@ -1,0 +1,239 @@
+<p class="heading">Ride History</p>
+<div class="container">
+  <div>
+    <div class="mapContainer">
+      <div class="map" id="map"></div>
+    </div>
+    <input
+      type="text"
+      placeholder="searchQuery"
+      class="searchBar"
+      [(ngModel)]="searchQuery"
+      (keydown)="getRideHistory()"
+    />
+    <div class="time">
+      <span class="date"
+        >From:
+        <input [(ngModel)]="fromDt" class="time-picker" type="date" />
+      </span>
+      <span class="date"
+        >To:
+        <input [(ngModel)]="toDt" class="time-picker" type="date" />
+      </span>
+      <span class="apply" (click)="searchDate()">apply</span>
+    </div>
+    <div class="tbl-container">
+      <table class="styled-table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>pick up</th>
+            <th>Drop</th>
+            <th>Date</th>
+            <th>User Number</th>
+            <th>Driver Name</th>
+            <th>Driver Number</th>
+            <th>Vehicle</th>
+            <th>Trip Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="active-row" *ngFor="let i of rideList">
+            <!-- <td *ngIf="i.userId" class="serviceTd" (click)="onSelectRequest(i)">
+            {{ i.userId.userName }}
+          </td>
+          <td *ngIf="!i.userId" class="serviceTd" (click)="onSelectRequest(i)">
+            UnKnown Usere
+          </td> -->
+            <td class="serviceTd" (click)="onSelectRequest(i)" *ngIf="i.userId">
+              {{ i.userId.userName }}
+            </td>
+            <td class="serviceTd" *ngIf="i.user">{{ i.user }}</td>
+            <td class="serviceTd">{{ i.pickUp }}</td>
+            <td class="serviceTd">{{ i.drop }}</td>
+            <td class="serviceTd">{{ i.date }}</td>
+            <td class="serviceTd" *ngIf="i.userId">{{ i.userId.userPhone }}</td>
+            <td class="serviceTd" *ngIf="i.userNo">{{ i.userNo }}</td>
+            <td class="serviceTd" *ngIf="i.driver">
+              {{ i.driver }}
+            </td>
+            <td class="serviceTd" *ngIf="i.driverId != null">
+              {{ i.driverId.driverName }}
+            </td>
+
+            <td
+              class="serviceTd"
+              *ngIf="i.driverId == null && i.driver == null"
+            >
+              admin Cancelled
+            </td>
+            <!-- <td class="serviceTd" *ngIf="!i.driver">admin Cancelled</td> -->
+
+            <td class="serviceTd" *ngIf="i.driverNo">
+              {{ i.driverNo }}
+            </td>
+            <td class="serviceTd" *ngIf="i.driverId != null">
+              {{ i.driverId.driverPhone }}
+            </td>
+            <td
+              class="serviceTd"
+              *ngIf="i.driverId == null && i.driverNo == null"
+            >
+              nan
+            </td>
+            <!-- <td class="serviceTd" *ngIf="!i.driverNo">nan</td> -->
+
+            <td class="serviceTd" *ngIf="i.serviceId">
+              {{ i.serviceId.vehicleName }}
+            </td>
+            <td class="serviceTd" *ngIf="i.vehicle">
+              {{ i.vehicle }}
+            </td>
+            <td class="serviceTd">{{ i.currentStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button
+      placeholder="download"
+      class="downloadTrip"
+      (click)="downloadAllTrips()"
+    >
+      <i class="fas fa-long-arrow-alt-down"></i>
+    </button>
+    <a
+      *ngIf="dwnbtn"
+      class="linkall"
+      href="{{ downloadBtn.href }}"
+      id="abb"
+      (click)="tripDownloadMessage()"
+    ></a>
+  </div>
+</div>
+<div>
+  <div class="paginate">
+    <div>
+      <select
+        name="pg"
+        class="pagelist"
+        [(ngModel)]="pageLimit"
+        (change)="onChangeLimit()"
+      >
+        <optgroup label="Limit">
+          <option value="2">2</option>
+          <option value="4">4</option>
+          <option value="6">6</option>
+        </optgroup>
+      </select>
+      <div>
+        <ul style="display: inline-block" *ngFor="let i of pageList">
+          <li
+            name="page"
+            [ngClass]="{ onPage: pageNo == i }"
+            (click)="getRideHistory(i)"
+          >
+            {{ i }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="">
+  <div class="showdetails" *ngIf="showMap">
+    <i class="fas fa-window-close cancelBtn" (click)="hideDetails()"></i>
+
+    <div class="profile">
+      <div>
+        <td>
+          <img
+            class="userImage"
+            src="http://localhost:3000/images/uploaduser/{{
+              selectedData.userId.userImage
+            }}"
+            alt=""
+          />
+        </td>
+      </div>
+      <div>
+        <tr>
+          <td>
+            {{ selectedData.userId.userName }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ selectedData.userId.userEmail }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ selectedData.userId.userPhone }}
+          </td>
+        </tr>
+      </div>
+    </div>
+    <div class="location">
+      <label for="from">From:</label>
+      <tr>
+        <td name="from" class="dropAddress">
+          {{ selectedData.pickUp }}
+        </td>
+      </tr>
+      <label for="To">To:</label>
+      <tr>
+        <td name="to" id="to" class="dropAddress">
+          {{ selectedData.drop }}
+        </td>
+      </tr>
+      <label for="stop">Stop:</label>
+      <tr>
+        <td name="stop" class="dropAddress">
+          {{ selectedData.stopList }}
+        </td>
+      </tr>
+    </div>
+    <div class="location">
+      <tr>
+        Distance:&nbsp;&nbsp;
+        {{
+          selectedData.distance
+        }}
+      </tr>
+      <tr>
+        Duration:&nbsp;&nbsp;
+        {{
+          selectedData.duration
+        }}
+      </tr>
+      <tr>
+        Date:&nbsp;&nbsp;
+        {{
+          selectedData.date
+        }}
+      </tr>
+      <tr>
+        Cost:&nbsp;&nbsp;
+        {{
+          selectedData.serviceCost
+        }}
+      </tr>
+    </div>
+    <div
+      id="download"
+      (click)="hideDetails()"
+      *ngIf="selectedData.currentStatus == 'completed'"
+    >
+      <!-- <button id="download"> -->
+      <!-- *ngIf="downloadBtn != undefined" -->
+      <a
+        class="link"
+        href="{{ downloadBtn.href }}"
+        id="abc"
+        (click)="tripDownloadMessage()"
+        >asf</a
+      >
+      <!-- </button> -->
+    </div>
+  </div>
+</div>

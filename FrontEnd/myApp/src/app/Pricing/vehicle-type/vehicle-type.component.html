@@ -1,0 +1,71 @@
+<p class="heading">Vehicle Type</p>
+<div class="formContainer">
+  <form
+    #vehicleForm="ngForm"
+    (ngSubmit)="storeVehicleType()"
+    class="vehicleForm"
+  >
+    <input
+      type="text"
+      name="name"
+      placeholder="enter vehicle Name"
+      class="vehicleName"
+      [(ngModel)]="vehicleName"
+      (keypress)="checkName()"
+      required
+    />
+    <div *ngIf="isNameEmpty">pls enter vehicle name</div>
+    <div class="file-input-container">
+      <label for="file-input" class="custom-button">Upload</label>
+      <input
+        type="file"
+        name="vehicleImage"
+        class="hidden-input"
+        id="file-input"
+        (change)="onFileSelected($event)"
+        accept=".jpg,.png,.jpeg,.webp"
+        required
+      />
+    </div>
+    <div *ngIf="isImageEmpty">pls upload Image</div>
+    <div *ngIf="notImage">pls upload Image File</div>
+    <div *ngIf="fileSizeError">File size exceeds the limit.</div>
+    <!-- [disabled]="vehicleName != '' && file != undefined ? false : true" -->
+    <button type="submit" *ngIf="!editing" class="addButton">Add New</button>
+    <button
+      type="button"
+      (click)="updateVehicleType()"
+      *ngIf="editing"
+      class="addButton"
+    >
+      Update
+    </button>
+    <span *ngIf="editing" (click)="onCancel()">
+      <i class="fas fa-window-close cancel"></i>
+    </span>
+  </form>
+  <div class="selectedImageContainer" *ngIf="isImage">
+    <p class="selectedImageHeading">Selected Image</p>
+    <img src="{{ file }}" id="previewImage" class="selelctedImage" alt="" />
+  </div>
+</div>
+<div class="outputContainer">
+  <tbody class="container" (wheel)="handleMouseWheel($event)">
+    <tr *ngFor="let data of vehicleTypeData" class="item">
+      <td>
+        <img
+          class="vehicleImage"
+          src="http://localhost:3000/images/uploads1/{{ data.vehicleImage }}"
+          alt=""
+        />
+      </td>
+      <td class="nameTd">{{ data.vehicleName }}</td>
+      <td>
+        <p class="editButton" (click)="editButtonClick(data)">
+          <i class="fas fa-pencil-alt edit"></i>
+        </p>
+      </td>
+    </tr>
+  </tbody>
+  <!-- </table> -->
+</div>

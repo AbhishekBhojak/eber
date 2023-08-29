@@ -1,0 +1,61 @@
+<div class="maindiv" *ngIf="hidemenu">
+  <div class="subd1">
+    <p (click)="showMenu()" class="menuIconContainer">
+      <!-- <i class="fas fa-ellipsis-v menuIcon"></i> -->
+      <span class="menuIcon">menu</span>
+    </p>
+    <nav>
+      <!-- <a class="menu" routerLink="/home">menu</a> -->
+      <!-- <a class="form" routerLink="/form">form</a> -->
+
+      <div class="dropdown">
+        <button class="menuHead rides">Rides</button>
+        <div class="dropdown-content">
+          <a class="createRide" routerLink="createRide">Create Ride</a>
+          <a class="confirmRide" routerLink="confirmRide">Confirm Ride</a>
+          <a class="rideHistory" routerLink="rideHistory">Ride History</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="menuHead users">Users</button>
+        <div class="dropdown-content">
+          <a class="users" routerLink="users">Users</a>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="menuHead">Drivers</button>
+        <div class="dropdown-content">
+          <a class="list" routerLink="driverList">Driver List</a>
+          <a class="runnigRequest" routerLink="runnigRequest"
+            >Running Request</a
+          >
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="menuHead">Pricing</button>
+        <div class="dropdown-content">
+          <li><a class="country" routerLink="country">Country</a></li>
+          <li><a class="city" routerLink="city">City</a></li>
+          <li>
+            <a class="vehicleType" routerLink="vehicleType">Vehicle Type</a>
+          </li>
+          <li>
+            <a class="vehiclePrice" routerLink="vehiclePrice">Vehicle Price</a>
+          </li>
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="menuHead" style="margin-right: 5px">Setting</button>
+        <div class="dropdown-content">
+          <li><a class="setting" routerLink="setting">Setting</a></li>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="logoutContainer">
+    <a routerLink="/" (click)="logOut()">
+      <i class="fas fa-sign-out-alt logoutIcon"></i>
+      <!-- <span>logOut</span> -->
+    </a>
+  </div>
+</div>

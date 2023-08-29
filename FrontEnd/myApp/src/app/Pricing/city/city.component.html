@@ -1,0 +1,73 @@
+<p class="heading">City</p>
+<div class="countryList">
+  <select
+    name="cnt"
+    id="country-select"
+    class="selectCountry"
+    [(ngModel)]="selectedCountry"
+    (change)="onSelectCountry()"
+    value="select country"
+  >
+    <option *ngFor="let item of countryList" [ngValue]="item">
+      {{ item.countryName }}
+    </option>
+  </select>
+</div>
+<div class="autoCompleteContainer">
+  <div>
+    <input
+      type="text"
+      class="autocomplete"
+      id="autocomplete-input"
+      placeholder="search location..."
+      [disabled]="isAutoComplete"
+    />
+  </div>
+</div>
+<div class="container">
+  <div class="mapContainer">
+    <div class="mapDiv">
+      <div id="map" class="map"></div>
+    </div>
+    <div class="cityList">
+      <div>
+        <p class="cityHeading">
+          {{ countryName }}
+        </p>
+      </div>
+      <div class="cityDiv">
+        <ul *ngIf="!isAutoComplete">
+          <li
+            class="cityData"
+            name="cityData"
+            [(ngmodel)]="citySelected"
+            *ngFor="let i of mongoCityList | cityFilter : selectedCountry._id"
+            (click)="onCitySelect(i)"
+          >
+            {{ i.cityName }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="savecity" *ngIf="canSave">
+      <button class="assign-btn" (click)="onStoreCity()">save</button>
+      <button class="cancel-btn" (click)="cancelStoreCity()">cancel</button>
+    </div>
+    <button
+      *ngIf="updateCoords"
+      class="assign-btn1"
+      (click)="updatePolygon($event)"
+    >
+      Update
+    </button>
+    <button
+      *ngIf="updateCoords"
+      class="cancel-btn"
+      (click)="cancelEditCoords()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

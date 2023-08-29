@@ -1,0 +1,61 @@
+select {
+    width: 20vw;
+    display: block;
+    margin-top: 10px;
+    color: aqua;
+    background-color: rgb(103, 103, 103);
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+    text-anchor: middle;
+}
+
+.container {
+    width: 25vw;
+    border-radius: 10px;
+    background-color: white;
+    margin-left: 3vw;
+    padding-left: 4vw;
+    height: 64vh;
+}
+
+.hrline {
+    width: 43vh;
+    margin-left: 0px;
+}
+
+.mail {
+    background-color: #da940f;
+    text-align: center;
+    width: 20vw;
+    padding: 5px;
+    border-radius: 12px;
+    /* font-weight: bold; */
+    font-size: 18px;
+}
+
+.wraper {
+    display: flex;
+    justify-content: center;
+}
+
+.values {
+    width: 5vw;
+    background-color: orange;
+    border-radius: 10px;
+    margin-left: 7vw;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.Heading {
+    background-color: rgb(248, 220, 186);
+    color: black;
+    width: 20vw;
+    height: 4vh;
+    border-radius: 8px;
+    font-size: 25px;
+    text-align: center;
+}

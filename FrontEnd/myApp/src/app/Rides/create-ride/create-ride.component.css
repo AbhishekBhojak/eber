@@ -1,0 +1,249 @@
+.container {
+  display: inline-flex;
+  flex-direction: column;
+  border: 1px solid silver;
+  /* justify-content: space-around; */
+}
+
+.serviceTr {
+  background-color: rgb(191, 191, 241);
+  border: 1px solied red;
+  /* margin-top: 3vh; */
+  font-weight: bold;
+  font-size: 2vh;
+  overflow: scroll;
+}
+
+.bookRideContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.moveleft {
+  padding-left: 5px;
+}
+
+.formHeading {
+  text-align: center;
+  font-size: large;
+  font-weight: bold;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  /* align-items: center; */
+}
+
+.rideForm {
+  height: 50vh;
+}
+
+.mapBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.map {
+  height: 400px;
+  width: 600px;
+  border-radius: 10px;
+}
+
+.bookbtn {
+  background-color: rgb(130, 130, 238);
+  width: 11vw;
+  font-weight: bolder;
+}
+
+.bookRide {
+  width: 15vw;
+  margin-top: 2vh;
+  /* padding-top: 13vh; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+
+.bookRide input,
+.bookbtn {
+  margin-top: 1vw;
+}
+
+.userForm {
+  height: 302px;
+  width: 20vw;
+  background-color: aliceblue;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 2vh;
+  justify-content: space-evenly;
+}
+
+.serviceCost {
+  padding-left: 5vw;
+}
+
+.destForm {
+  height: 50vh;
+  margin-top: 5px;
+  width: 20vw;
+  background-color: aliceblue;
+  border-radius: 10px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  font-size: large;
+  justify-content: space-around;
+}
+
+
+.hidden-input {
+  position: absolute;
+  border: 1px solid black;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* height: 100%; */
+  opacity: 0;
+  cursor: pointer;
+  display: none;
+  visibility: hidden;
+}
+
+.custom-button {
+  width: 10vw;
+  display: inline;
+  margin-top: 10px;
+  color: rgb(83, 82, 82);
+  background-color: rgba(0, 0, 0, 0.15);
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.rideInfo {
+  height: 50vh;
+  width: 400px;
+  border: 1px solid red;
+}
+
+.pickAddress,
+.dropAddress {
+  /* word-wrap: break-word; */
+  width: 10vw;
+  overflow-wrap: break-word;
+}
+
+.assign-btn {
+  width: 10vw;
+  margin-top: 10px;
+  background-color: #34b097;
+  color: rgb(44, 42, 42);
+  font-size: 15px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  width: 10vw;
+  margin-top: 10px;
+  background-color: rgb(240, 206, 82);
+  color: rgb(44, 42, 42);
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: rgb(236, 100, 59);
+  ;
+}
+
+.assign-btn:hover {
+  background-color: #0fa236;
+}
+
+button {
+  width: 10vw;
+  margin-top: 10px;
+  background-color: orangered;
+  color: rgb(44, 42, 42);
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.formheight {
+  height: 50vh;
+}
+
+.payment-container {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.paymentOption {
+  width: 24px;
+}
+
+input,
+select {
+  width: 10vw;
+  /* display: inline; */
+  /* margin-top: 10px; */
+  color: rgb(82, 82, 82);
+  background-color: rgba(0, 0, 0, 0.15);
+  font-size: 18px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.vehicleImg {
+  height: 6vh;
+  width: 5vw;
+  border-radius: 10px;
+}
+
+.mapMain {
+  border: 1px solid silver;
+  padding: 10px;
+}
+
+.title {
+  border-radius: 5px;
+  background-color: rgb(169, 191, 191);
+}
+
+.findUserForm {
+  display: flex;
+}
+
+.showServiceContainer {
+  border-radius: 15px;
+  width: 20vw;
+  overflow: auto;
+  scrollbar-width: none;
+  height: 27vh;
+  position: absolute;
+}
+
+.serviceOpt {
+  width: 20px;
+}

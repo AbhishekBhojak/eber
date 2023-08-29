@@ -1,0 +1,140 @@
+button {
+    display: block;
+    width: 10vw;
+    margin-top: 10px;
+    background-color: orangered;
+    color: rgb(44, 42, 42);
+    font-size: 15px;
+    text-align: center;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.dropAddress {
+    width: 10vw;
+    overflow-wrap: break-word;
+}
+
+.timmer {
+    color: rgb(255, 79, 229);
+    font-weight: bolder;
+    font-size: 31px;
+}
+
+.cancelBtn {
+    color: red;
+    left: 5px;
+    position: absolute;
+    top: 5px;
+}
+
+.showDetails {
+    position: fixed;
+    right: 1.5vw;
+    top: 8vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 20vw;
+    border-radius: 15px;
+    height: 80vh;
+    padding-left: 5vw;
+    overflow: scroll;
+    align-items: center;
+}
+
+.userImg {
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tbl-container {
+    max-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    width: 50vw;
+    scrollbar-width: none;
+    border-radius: 15px;
+}
+
+/* .styled-table tbody tr {
+    overflow: auto;
+    scrollbar-width: none;
+    position: fixed;
+} */
+
+.styled-table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: sans-serif;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+    position: sticky;
+}
+
+.styled-table tbody tr {
+    color: rgb(92, 89, 89);
+}
+
+thead {
+    position: sticky;
+    top: 0px;
+    /* margin-bottom: 10px; */
+    padding: 20px;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row:hover {
+    font-weight: bold;
+    /* color: white; */
+    color: black;
+}
+
+.cancel-btn {
+    background-color: rgb(240, 206, 82);
+}
+
+.cancel-btn:hover {
+    background-color: rgb(236, 100, 59);
+    ;
+}
+
+.assign-btn {
+    background-color: #34b097;
+}
+
+.assign-btn:hover {
+    background-color: #0fa236;
+}

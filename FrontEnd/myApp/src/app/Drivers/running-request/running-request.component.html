@@ -1,0 +1,91 @@
+<p class="heading">Running Request</p>
+<div class="container">
+  <!-- <div id="timmer" class="timmer">00:00:00</div> -->
+  <div class="tbl-container">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>From</th>
+          <th>Driver Name</th>
+          <th>Action</th>
+          <th>Timer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="active-row" *ngFor="let i of requestList">
+          <!-- <tr *ngFor="let i of requestList"> -->
+          <!-- <td class="serviceTd" (click)="showDetails(i)"> -->
+          <td class="serviceTd" (click)="showDetails(i)">
+            {{ i.userId.userName }}
+          </td>
+          <td *ngIf="i.userId.userName == null">no data</td>
+          <td class="serviceTd dropAddress">{{ i.pickUp }}</td>
+          <td class="serviceTd" *ngIf="i.driverId">
+            {{ i.driverId.driverName }}
+          </td>
+          <td class="serviceTd">
+            <button class="assign-btn" (click)="acceptRequest(i)">
+              {{ i.currentStatus | statusFilter }}
+            </button>
+            <button
+              class="cancel-btn"
+              (click)="cancelRequest(i)"
+              *ngIf="i.currentStatus == 'pending'"
+            >
+              cancel
+            </button>
+          </td>
+          <td class="serviceTd">
+            <i class="timmer" *ngIf="i.timer">{{ i.timer }}</i>
+            <i class="timmer" *ngIf="!i.timer">NA</i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div *ngIf="showInfo" class="showDetails">
+      <i class="fas fa-window-close cancelBtn" (click)="hideDetails()"></i>
+      <div>
+        <tr>
+          <td>
+            <img
+              src="http://localhost:3000/images/uploaduser/{{
+                selectedRequest.userId.userImage
+              }}"
+              class="userImg"
+              alt=""
+            />
+          </td>
+        </tr>
+        <tr>
+          Name:
+          <td>{{ selectedRequest.userId.userName }}</td>
+        </tr>
+        <tr>
+          Email:
+          <td>{{ selectedRequest.userId.userEmail }}</td>
+        </tr>
+        <tr>
+          Contact:
+          <td>{{ selectedRequest.userId.userPhone }}</td>
+        </tr>
+      </div>
+      <div>
+        <tr>
+          From:
+          <td class="dropAddress">{{ selectedRequest.pickUp }}</td>
+        </tr>
+        <tr>
+          To:
+          <td class="dropAddress">{{ selectedRequest.drop }}</td>
+        </tr>
+        <tr>
+          Stop List:
+          <td class="dropAddress">{{ selectedRequest.stopList }}</td>
+        </tr>
+      </div>
+    </div>
+  </div>
+</div>

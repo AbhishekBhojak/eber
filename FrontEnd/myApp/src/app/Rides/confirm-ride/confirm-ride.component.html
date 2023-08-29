@@ -1,0 +1,275 @@
+<p class="heading">Confirm Ride</p>
+<i class="fas fa-bell notification-bell"></i>
+<div class="counter" (click)="bellIcon()">
+  {{ notificationCounter }}
+</div>
+<div class="table-container" *ngIf="showTable">
+  <input
+    type="text"
+    class="searchField"
+    placeholder="Search Query.."
+    [(ngModel)]="searchField"
+    (keyup)="getCreateRideList()"
+  />
+  <div class="time">
+    <span class="date">From:</span
+    ><input [(ngModel)]="fromDt" class="time-picker" type="date" />
+    <span class="date">To:</span
+    ><input [(ngModel)]="toDt" class="time-picker" type="date" />
+    <span class="apply" (click)="searchDate()">apply</span>
+  </div>
+  <!-- (change)="search()" -->
+  <div class="tbl-container">
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>RequestId</th>
+          <th>userName</th>
+          <th>Number</th>
+          <th>Pickup</th>
+          <th>Drop</th>
+          <th>ServiceType</th>
+          <th>Duration</th>
+          <th>Distance</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Assign Rides</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody class="tableOutput">
+        <tr *ngFor="let i of createRideDataList" class="active-row">
+          <td class="serviceTd" (click)="selectRequest(i)">
+            {{ i._id || noDataToShow }}
+          </td>
+          <td class="serviceTd" *ngIf="i.userId">
+            {{ i.userId.userName || noDataToShow }}
+          </td>
+          <td class="serviceTd" *ngIf="i.user">{{ i.user || noDataToShow }}</td>
+          <td class="serviceTd" *ngIf="i.userId">
+            {{ i.userId.userPhone || noDataToShow }}
+          </td>
+          <td class="serviceTd" *ngIf="i.user">
+            {{ i.userNo || noDataToShow }}
+          </td>
+          <td class="pickAddress serviceTd" id="myParagraph">
+            {{ i.pickUp || noDataToShow }}
+          </td>
+          <td class="dropAddress serviceTd" id="myParagraph">
+            {{ i.drop || noDataToShow }}
+          </td>
+          <td class="serviceTd" *ngIf="i.serviceId">
+            {{ i.serviceId.vehicleName }}
+          </td>
+          <td class="serviceTd" *ngIf="i.vehicle">
+            {{ i.vehicle }}
+          </td>
+          <td class="serviceTd">{{ i.duration }}</td>
+          <td class="serviceTd">{{ i.distance }}</td>
+          <td class="serviceTd">{{ i.date }}</td>
+          <td class="serviceTd">{{ i.time }}</td>
+          <td class="serviceTd">
+            <span *ngIf="i.currentStatus == 'booked'">
+              <button
+                class="assign-btn"
+                *ngIf="i.newRide"
+                type="button"
+                (click)="showDialogBox(i)"
+              >
+                Assign
+              </button>
+              <button
+                class="assing-btn"
+                *ngIf="!i.newRide"
+                type="button"
+                (click)="showDialogBox(i)"
+              >
+                Re-assign
+              </button>
+            </span>
+            <span
+              *ngIf="
+                i.currentStatus == 'pending' || i.currentStatus == 'booked'
+              "
+            >
+              <button class="cancel-btn" (click)="cancelRide(i)">Cancel</button>
+            </span>
+            <span *ngIf="i.driverId != null && i.currentStatus != 'pending'">{{
+              i.driverId.driverName
+            }}</span>
+          </td>
+          <td class="serviceTd">{{ i.currentStatus }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div *ngIf="isRequestInfo" class="showDetails">
+  <div>
+    <i class="fas fa-window-close cancelBtn" (click)="hideDetails()"></i>
+  </div>
+  <div>
+    <tr>
+      <td>
+        <img
+          class="userImg"
+          src="http://localhost:3000/images/uploaduser/{{
+            filterRequest.userId.userImage
+          }}"
+          alt=""
+        />
+      </td>
+      <td>{{ filterRequest.userId.userName }}</td>
+    </tr>
+    <tr>
+      Distance:
+      <td>{{ filterRequest.distance }}</td>
+    </tr>
+    <tr>
+      Duraiton:
+      <td>{{ filterRequest.duration }}</td>
+    </tr>
+    <tr>
+      Booking Time:
+      <td>{{ filterRequest.time }}</td>
+    </tr>
+    <tr>
+      Booking Date:
+      <td>{{ filterRequest.date }}</td>
+    </tr>
+    <tr>
+      Service Type:
+      <td>{{ filterRequest.serviceId.vehicleName }}</td>
+    </tr>
+    <tr>
+      Total Cost:
+      <td>{{ filterRequest.serviceCost }}</td>
+    </tr>
+  </div>
+  <div>
+    <tr>
+      Pickup:
+      <td class="pickAddress">{{ filterRequest.pickUp }}</td>
+    </tr>
+    <tr>
+      Drop:
+      <td class="pickAddress">{{ filterRequest.drop }}</td>
+    </tr>
+    <tr>
+      Stops:
+      <td>{{ filterRequest.stopList }}</td>
+    </tr>
+  </div>
+</div>
+<div *ngIf="isDialogBox" class="showDetails">
+  <i class="fas fa-window-close cancelBtn" (click)="hideDetails()"></i>
+  <div>
+    <tr>
+      PickUp:
+      <td>{{ filterRequest.pickUp }}</td>
+    </tr>
+    <tr>
+      Drop:
+      <td>{{ filterRequest.drop }}</td>
+    </tr>
+  </div>
+  <div>
+    <tr>
+      Booking Time:
+      <td>{{ filterRequest.time }}</td>
+    </tr>
+  </div>
+
+  <tr>
+    <h1 *ngIf="driver">
+      Driver : <i>{{ driver.driverName }}</i>
+    </h1>
+    <ul
+      *ngFor="let i of driverList; index as idx"
+      (click)="selectedDriver(i)"
+      id="selectLi"
+    >
+      <div class="driverDetails" id="parent">
+        <h3>{{ idx + 1 }}</h3>
+        <span id="selectedDriver" class="selectedDriver">
+          <!-- <input type="radio" /> -->
+          <li>Id:{{ i._id }}</li>
+          <li>Name:{{ i.driverName }}</li>
+          <li>Email:{{ i.driverEmail }}</li>
+          <li>Phone:{{ i.driverPhone }}</li>
+        </span>
+      </div>
+    </ul>
+  </tr>
+  <div>
+    <tr>
+      <td>
+        <button
+          [disabled]="!driver ? true : false"
+          (click)="assingnToSelectedDriver()"
+        >
+          Assing Selected Driver
+        </button>
+      </td>
+      <td>
+        <i
+          class="fas fa-window-close deselectDriverbtn"
+          id="first"
+          *ngIf="cancelBtn"
+          (click)="cancelDriver()"
+        ></i>
+      </td>
+      <td>
+        <button *ngIf="hideNearestDriverBtn" (click)="assignToNearestDriver()">
+          Assing Nearest Driver
+        </button>
+      </td>
+    </tr>
+  </div>
+</div>
+<div *ngIf="closeNotify" class="notify-container">
+  <i
+    class="fas fa-window-close closeNotifyBtn"
+    id="first"
+    (click)="closeNotification()"
+  ></i>
+  <ul *ngFor="let i of notificationList">
+    <div class="userMsg">
+      <p class="infoMessage">
+        Trip Was Not Accepted For Service
+        {{ i.serviceId.vehicleName }}
+      </p>
+      <p class="infoMessages">
+        userName-: <span class="data">{{ i.userId.userName }}</span>
+      </p>
+      <p class="infoMessages">
+        userEmail-: <span class="data">{{ i.userId.userEmail }}</span>
+      </p>
+      <p class="infoMessages">
+        userPhone-: <span class="data">{{ i.userId.userPhone }}</span>
+      </p>
+    </div>
+  </ul>
+</div>
+<div class="paginate">
+  <div>
+    <select name="pg" [(ngModel)]="pageLimit" (change)="onChangeLimit()">
+      <optgroup label="Limit">
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+      </optgroup>
+    </select>
+    <div>
+      <ul style="display: inline-block" *ngFor="let i of pageList">
+        <li
+          name="page"
+          [ngClass]="{ onPage: pageNo == i }"
+          (click)="getCreateRideList(i)"
+        >
+          {{ i }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

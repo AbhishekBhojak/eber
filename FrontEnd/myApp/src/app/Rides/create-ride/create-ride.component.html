@@ -1,0 +1,398 @@
+<p class="heading">Create Ride</p>
+<div class="mainContainer">
+  <div class="mapMain">
+    <div class="mapBox">
+      <div class="mapContainer">
+        <div class="map" id="map"></div>
+      </div>
+      <div class="bookRide">
+        <input
+          type="text"
+          name="distance"
+          placeholder="Total Distance.."
+          [(ngModel)]="distance"
+          disabled
+        />
+        <input
+          type="text"
+          name="duration"
+          placeholder="Total Time.."
+          [(ngModel)]="duration"
+          disabled
+        />
+        <button
+          type="button"
+          class="assign-btn"
+          (click)="storeCreateRideData()"
+          [disabled]="
+            autocompleteFrom != '' &&
+            autocompleteTo != '' &&
+            vehicleService != undefined &&
+            date != undefined &&
+            time != undefined &&
+            setTime != undefined
+              ? false
+              : true
+          "
+        >
+          <!-- istime == false -->
+          Book Ride
+        </button>
+        <button
+          type="button"
+          class="assign-btn"
+          *ngIf="notUser"
+          (click)="addUser()"
+        >
+          <!-- [disabled]="searchUser != '' ? true : false" -->
+          Add User
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="userForm" *ngIf="showUserForm">
+      <p class="formHeading">find User</p>
+      <input
+        type="number"
+        name="searchBar"
+        class="searchUser"
+        [(ngModel)]="searchUser"
+        oninput="validity.valid||(value='')"
+        min="0"
+        max="9999999999"
+        (keyup)="validateNum($event, 10, 'find')"
+        placeholder="Search User Number..."
+      />
+      <button
+        (click)="findUser()"
+        id="find"
+        class="assign-btn"
+        [disabled]="searchUser != '' ? false : true"
+      >
+        Find User
+      </button>
+      <!-- <div *ngIf="searchUser == ''">Pls Enter Number</div> -->
+      <div name="showDetails" *ngIf="showDetails" class="userForm">
+        <input
+          type="text"
+          name="name"
+          id="userName"
+          [(ngModel)]="userName"
+          [disabled]="enableField"
+        />
+        <input
+          type="text"
+          name="email"
+          [(ngModel)]="userEmail"
+          [disabled]="enableField"
+        />
+        <input
+          type="text"
+          name="phone"
+          [(ngModel)]="userPhone"
+          [disabled]="enableField"
+        />
+      </div>
+      <div *ngIf="showForm">
+        <form (ngSubmit)="storeUserData()" class="userForm formheight">
+          <p class="formHeading">Add User</p>
+          <label for="file-input" class="custom-button">Upload Image</label>
+          <div>
+            <input
+              name="image"
+              type="file"
+              class="hidden-input"
+              id="file-input"
+              placeholder="User Profile"
+              (change)="onSelectFile($event)"
+              accept=".jpg,.png,.jpeg"
+              (change)="notEmpty('image')"
+              required
+            />
+            <div *ngIf="isImageEmpty">upload Image pls</div>
+          </div>
+          <div>
+            <input
+              name="name"
+              type="text"
+              [(ngModel)]="userName"
+              (change)="notEmpty('name')"
+              placeholder="Name"
+              required
+            />
+            <div *ngIf="isName">name required</div>
+          </div>
+          <div>
+            <input
+              name="email"
+              type="text"
+              [(ngModel)]="userEmail"
+              (change)="notEmpty('email')"
+              placeholder="Email"
+              required
+            />
+            <div *ngIf="isEmail">email invalid</div>
+          </div>
+          <div>
+            <select
+              name="country"
+              [(ngModel)]="selectedCountry"
+              (change)="onSelectCountry()"
+              (change)="notEmpty('country')"
+            >
+              <option *ngFor="let i of countryList" [ngValue]="i">
+                {{ i.countryName }}
+              </option>
+            </select>
+            <div *ngIf="isCountry">selected country</div>
+          </div>
+          <div>
+            <input
+              name="mobile"
+              type="number"
+              oninput="validity.valid||(value='')"
+              min="0"
+              max="9999999999"
+              (keyup)="validateNum($event, 10, 'addUser')"
+              [(ngModel)]="userPhone"
+              placeholder="Mob-Number"
+              (change)="notEmpty('phone')"
+            />
+            <div *ngIf="isNumber">number required</div>
+          </div>
+
+          <button
+            type="submit"
+            id="addUser"
+            class="assign-btn"
+            *ngIf="addButton"
+          >
+            Add User
+          </button>
+          <button type="button" class="cancel-btn" (click)="cancelAddUser()">
+            Cancel
+          </button>
+        </form>
+      </div>
+    </div>
+    <tbody *ngIf="showService" class="showServiceContainer">
+      <tr *ngFor="let i of vehiclePriceList" [ngValue]="i" class="serviceTr">
+        <td>
+          <input
+            class="serviceOpt"
+            type="radio"
+            name="vehiclePrice"
+            value="{{ i._id }}"
+            id="`{{ i._id }}Radio`"
+            (click)="getVehiclePriceService(i)"
+          />
+        </td>
+        <td>
+          <img
+            src="http://localhost:3000/images/uploads1/{{
+              i.vehicleTypeId.vehicleImage || '123.png'
+            }}"
+            alt=""
+            class="vehicleImg"
+          />
+        </td>
+        <span>
+          <td>
+            {{ i.vehicleTypeId.vehicleName }}
+            &nbsp;&nbsp;
+            <i class="fas fa-users"></i>&nbsp;{{ i.maxSpace }}
+          </td>
+          &nbsp;&nbsp;
+          <td>₹{{ i.total }}.00</td>
+        </span>
+      </tr>
+    </tbody>
+  </div>
+  <div>
+    <div class="destForm" *ngIf="showDestInfo">
+      <p class="formHeading">Add Ride Info</p>
+      <div *ngIf="showDestination" class="destForm rideForm">
+        <input
+          type="text"
+          id="from"
+          placeholder="From Destination....."
+          id="fromInput"
+        />
+        <tbody class="showServiceContainer">
+          <div *ngIf="waypointsList">
+            <tr *ngFor="let i of wayPoints">
+              <td>
+                {{ i.location
+                }}<i class="fas fa-window-close" (click)="removePlace(i)"></i>
+              </td>
+            </tr>
+          </div>
+        </tbody>
+        <input type="text" placeholder="To Destination..." id="toInput" />
+        <hr style="color: black; width: 100%" />
+        <input
+          type="text"
+          placeholder="Add Stops..."
+          id="addStop"
+          *ngIf="addStopBtn"
+          [disabled]="!showService"
+        />
+        <button
+          type="button"
+          class="assign-btn"
+          (click)="addStops()"
+          *ngIf="addStopBtn"
+          [disabled]="!showService"
+        >
+          Add Stop
+        </button>
+        <span class="title">Payment Option:</span>
+        <div class="payment-container">
+          <span>
+            <input
+              type="radio"
+              name="paymentOption"
+              class="paymentOption"
+              value="cash"
+              (click)="onSelectOption()"
+            />
+            <!-- [(ngModel)]="paymentType" -->
+            <label for="paymentOption">cash</label>
+          </span>
+          <span>
+            <input
+              type="radio"
+              name="paymentOption"
+              class="paymentOption"
+              value="card"
+              (click)="onSelectOption()"
+            />
+            <!-- [(ngModel)]="paymentType" -->
+            <label for="paymentOption">card</label>
+          </span>
+        </div>
+        <!-- <select
+          name="paymentOption"
+          *ngIf="showPayOption"
+          [(ngModel)]="paymentType"
+          (change)="onSelectOption()"
+        >
+          <optgroup label="Payment Option">
+            <option value="cash">cash</option>
+            <option value="card">Card</option>
+          </optgroup>
+        </select>-->
+        <select
+          [(ngModel)]="selectPaymentType"
+          *ngIf="isUserCard"
+          (change)="paymentOption()"
+        >
+          <optgroup label="Card List">
+            <option *ngFor="let i of filteredUserCardList" [ngValue]="i">
+              <tr>
+                <td>
+                  {{ i.last4 }}
+                </td>
+                &nbsp;&nbsp;
+                <td>
+                  {{ i.expiryMonth }}
+                </td>
+                <td>/{{ i.expiryYear }}</td>
+              </tr>
+            </option>
+          </optgroup>
+        </select>
+        <button
+          type="button"
+          *ngIf="isUserCard"
+          class="assign-btn"
+          (click)="addCard()"
+          [disabled]="paymentType == 'card' ? false : true"
+        >
+          Add Card
+        </button>
+        <span class="title">Schedule Ride:</span>
+        <select
+          name="setTime"
+          [(ngModel)]="setTime"
+          (change)="timeOption()"
+          id="setTime"
+        >
+          <option value="book now">Book Now</option>
+          <option value="Schedule Time">Schedule time</option>
+        </select>
+        <input
+          type="datetime-local"
+          id="timePicker"
+          min="{{ minDate }}"
+          *ngIf="showTimePicker"
+          name="timePicker"
+        />
+        <button
+          type="button"
+          class="assign-btn"
+          *ngIf="showTimePicker"
+          (click)="getTime()"
+        >
+          Schedule Time
+        </button>
+      </div>
+    </div>
+    <div>
+      <form
+        (ngSubmit)="storeCardData()"
+        *ngIf="cardForm"
+        class="userForm formheight"
+      >
+        <p class="formHeading">Add Card</p>
+        <div>
+          <input
+            type="number"
+            name="cardNumber"
+            [(ngModel)]="cardNumber"
+            placeholder="CardNo."
+            (change)="notEmpty('cardNo')"
+            oninput="validity.valid||(value='')"
+            min="0"
+            max="9999999999999999"
+            (keyup)="validateNum($event, 16, 'cvv')"
+          />
+          <div *ngIf="isCardNumber">Card Number is Required!!</div>
+        </div>
+        <div>
+          <input
+            type="number"
+            name="cvv"
+            id="cvv"
+            oninput="validity.valid||(value='')"
+            min="0"
+            max="999"
+            (keyup)="validateNum($event, 3, 'cardtimePicker')"
+            [(ngModel)]="cvv"
+            placeholder="cvv"
+            (change)="notEmpty('cvvNo')"
+          />
+          <div *ngIf="isCvv">CVV number is Required</div>
+        </div>
+        <div>
+          <input
+            type="date"
+            name="ExpiryDate"
+            id="cardtimePicker"
+            min="{{ minDate }}"
+            [(ngModel)]="expiry"
+            (change)="notEmpty('expiry')"
+          />
+          <div *ngIf="isExpiry">Expiry for Card is Required</div>
+        </div>
+
+        <button type="submit" class="assign-btn">Add Card</button>
+        <button type="button" class="cancel-btn" (click)="cancelAddCard()">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

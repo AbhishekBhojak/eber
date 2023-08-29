@@ -1,0 +1,104 @@
+<p class="heading">Country</p>
+<div class="searchContainer">
+  <!-- <label for="cnt1" class="custom-select">Select an option...</label> -->
+  <select
+    name="cnt"
+    class="searchBox"
+    id="cnt"
+    [(ngModel)]="selectedCountry"
+    (change)="onCountrySelect()"
+  >
+    <option *ngFor="let item of countryList" [value]="item">
+      {{ item }}
+    </option>
+  </select>
+</div>
+<div class="countryDiv">
+  <div>
+    <form
+      class="countryForm"
+      *ngIf="hideCountryForm"
+      (ngSubmit)="storeCountryData()"
+    >
+      <input
+        [(ngModel)]="countryName"
+        name="fields"
+        disabled
+        type="text"
+        class="countryName"
+        placeholder="country-Name"
+      />
+
+      <input
+        [(ngModel)]="countryZone"
+        name="fields1"
+        disabled
+        type="text"
+        class="countryZone"
+        placeholder="country-zone"
+      />
+      <input
+        [(ngModel)]="countryCode"
+        name="fields3"
+        disabled
+        type="text"
+        class="countryCode"
+        placeholder="countrycode"
+      />
+
+      <input
+        [(ngModel)]="countryCurrencySymbol"
+        name="field2"
+        disabled
+        type="text"
+        class="countryCurrencySymbol"
+        placeholder="currency-symbol"
+      />
+      <input
+        [(ngModel)]="countryCurrencyName"
+        name="fields2"
+        disabled
+        type="text"
+        class="countryCurrencyName"
+        placeholder="currency-name"
+      />
+      <!-- <img src="{{ countryFlag }}" /> -->
+      <!-- <h1 style="font-size: 20px">{{ countryCurrencySymbol }}</h1> -->
+      <button type="submit" class="assign-btn" *ngIf="validCountry">
+        Add Country
+      </button>
+      <button
+        type="button"
+        class="cancel-btn"
+        *ngIf="validCountry"
+        (click)="cancelAddCountry()"
+      >
+        cancel
+      </button>
+    </form>
+  </div>
+  <div class="flagDiv" *ngIf="showFlag">
+    <img class="selelctedImage" src="{{ countryFlag }}" alt="" />
+  </div>
+</div>
+<div class="outputContainer">
+  <input
+    type="text"
+    class="search"
+    placeholder="search country..."
+    [(ngModel)]="queryData"
+    (keyup)="findCountry()"
+  />
+  <div class="table-container">
+    <div id="countryGrid" class="container" (wheel)="handleMouseWheel($event)">
+      <div *ngFor="let data of countries" class="item">
+        <div><img class="flagImage" src="{{ data.countryFlag }}" alt="" /></div>
+        <p class="nameTd">{{ data.countryName }}</p>
+        <p class="nameTd">{{ data.countryZone }}</p>
+        <p class="nameTd">{{ data.countryCode }}</p>
+        <p class="nameTd">{{ data.currencyName }}</p>
+        <p class="nameTd">{{ data.currencySymbol }}</p>
+      </div>
+    </div>
+  </div>
+</div>
