@@ -7,6 +7,7 @@ import {Router} from '@angular/router'
 import {SessionService} from './services/session.service'
 import { SocketService } from './services/socket.service';
 import { LoaderService } from './services/loader.service';
+// import { Router } from 'express';
 @Component({  
   selector: 'app-root',  
   templateUrl: './app.component.html',  
@@ -33,7 +34,7 @@ export class AppComponent  {
   interval:any
   socket:any
 
-    constructor(private builder: FormBuilder, private loginApiService: LoginApiService,private router: Router,private userApi: UserapiService,private sessionService: SessionService,private socketService: SocketService,private loaderApi:LoaderService) {  
+    constructor(private builder: FormBuilder, private loginApiService: LoginApiService,private router:Router,private userApi: UserapiService,private sessionService: SessionService,private socketService: SocketService,private loaderApi:LoaderService) {  
   }  
   ngOnInit(): void {
   this.validateSession()

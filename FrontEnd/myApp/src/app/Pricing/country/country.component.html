@@ -8,6 +8,7 @@
     [(ngModel)]="selectedCountry"
     (change)="onCountrySelect()"
   >
+    <option value="" selected>select country</option>
     <option *ngFor="let item of countryList" [value]="item">
       {{ item }}
     </option>

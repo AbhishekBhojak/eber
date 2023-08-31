@@ -199,6 +199,7 @@
           />
         </td>
         <span>
+          &nbsp;&nbsp;
           <td>
             {{ i.vehicleTypeId.vehicleName }}
             &nbsp;&nbsp;
@@ -220,10 +221,10 @@
           placeholder="From Destination....."
           id="fromInput"
         />
-        <tbody class="showServiceContainer">
+        <tbody class="showServiceContainerss">
           <div *ngIf="waypointsList">
             <tr *ngFor="let i of wayPoints">
-              <td>
+              <td class="address">
                 {{ i.location
                 }}<i class="fas fa-window-close" (click)="removePlace(i)"></i>
               </td>

@@ -6,12 +6,11 @@
 }
 
 .serviceTr {
-  background-color: rgb(191, 191, 241);
-  border: 1px solied red;
-  /* margin-top: 3vh; */
+  background-color: rgba(0, 0, 0, 0.15);
   font-weight: bold;
   font-size: 2vh;
   overflow: scroll;
+  border: 1px solid;
 }
 
 .bookRideContainer {
@@ -82,7 +81,7 @@
   display: flex;
   flex-flow: column;
   align-items: center;
-  margin-top: 2vh;
+  margin-top: 0.5vh;
   justify-content: space-evenly;
 }
 
@@ -240,8 +239,26 @@ select {
   width: 20vw;
   overflow: auto;
   scrollbar-width: none;
-  height: 27vh;
+  height: 20vh;
   position: absolute;
+  top: 39vh;
+}
+
+.showServiceContainerss {
+  border-radius: 15px;
+  width: 16vw;
+  overflow: auto;
+  scrollbar-width: none;
+  height: 5vh;
+  text-align: justify;
+  padding: 9px;
+}
+
+.address {
+  background-color: rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 10px;
 }
 
 .serviceOpt {
